@@ -1,0 +1,92 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/*  main container */
+.box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: Arial, sans-serif;
+  padding: 20px;
+  background-color: #f5f5f5;
+  width: 100%;
+}
+
+.navbar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 10px 0;
+}
+.map-area{
+  width: 1000px;
+  height: 600px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+}
+
+
+.input {
+  padding: 8px 12px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  outline: none;
+}
+
+.btns {
+  padding: 8px 16px;
+  font-size: 16px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+.btns:hover {
+  background-color: #0056b3;
+}
+
+
+/* 3D model container */
+/* .cuboid-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+} */
+
+/* 3D model canvas */
+.cuboid-canvas {
+  width: 1000px;
+  height: 600px;
+  border: 1px solid #ccc;
+  /* background-color: aliceblue; */
+}
+
+/* Styling for the location pin */
+.location-pin {
+  width: 35px;
+  height: 45px;
+  position: absolute;
+  transform: translate(-50%, -100%);
+  left: 50%;
+  top: 50%;
+  background-image: url("https://static.vecteezy.com/system/resources/thumbnails/010/149/056/small/location-pin-icon-sign-symbol-design-free-png.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+/* heading */
+
+.heading{
+  text-align: center;
+align-items: center;
+padding: 10px;
+}
