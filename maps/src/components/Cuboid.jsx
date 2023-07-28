@@ -6,59 +6,60 @@ const Cuboid = ({ imageURL }) => {
   const cuboidRef = useRef(null);
   const engineRef = useRef(null);
   const sceneRef = useRef(null);
-  // const sphereRef = useRef(null);
+  const materialRef = useRef(null);
 
   useEffect(() => {
-    if (babylonContainerRef.current && imageURL) {
-      const canvas = babylonContainerRef.current;
-      const engine = new BABYLON.Engine(canvas, true);
-      engineRef.current = engine;
+    const canvas = babylonContainerRef.current;
+    const engine = new BABYLON.Engine(canvas, true);
+    engineRef.current = engine;
 
-      const createScene = () => {
-        const scene = new BABYLON.Scene(engine);
-        sceneRef.current = scene;
+    const createScene = () => {
+      const scene = new BABYLON.Scene(engine);
+      sceneRef.current = scene;
 
-        const camera = new BABYLON.ArcRotateCamera(
-          'camera',
-          -Math.PI / 2, 
-          Math.PI / 2, 
-          10, 
-          BABYLON.Vector3.Zero(),
-          scene
-        );
-        camera.attachControl(canvas, true);
+      const camera = new BABYLON.ArcRotateCamera(
+        'camera',
+        -Math.PI / 2,
+        Math.PI / 2,
+        10,
+        BABYLON.Vector3.Zero(),
+        scene
+      );
+      camera.attachControl(canvas, true);
 
-        const light = new BABYLON.HemisphericLight('light', new BABYLON.Vector3(0,0,0), scene);
-        light.intensity = 0.7;
+      const light = new BABYLON.HemisphericLight('light', new BABYLON.Vector3(0, 0, 0), scene);
+      light.intensity = 0.7;
 
-        const cuboid = BABYLON.MeshBuilder.CreateBox('cuboid', { width: 4, height: 6, depth: 3 }, scene);
-        cuboidRef.current = cuboid;
+      const cuboid = BABYLON.MeshBuilder.CreateBox('cuboid', { width: 4, height: 6, depth: 3 }, scene);
+      cuboidRef.current = cuboid;
+      console.log("cubboid")
 
+      const material = new BABYLON.StandardMaterial('material', scene);
+      materialRef.current = material;
+      cuboid.material = material;
+      console.log("material");
+      return scene;
+    };
 
-        // const sphere = BABYLON.MeshBuilder.CreateSphere('sphere', { diameter: 6 }, scene); // Change to sphere
-        // sphereRef.current = sphere;
+    const scene = createScene();
 
-       
+    engine.runRenderLoop(() => {
+      console.log("scene")
+      scene.render();
+    });
 
+    return () => {
+      engine.stopRenderLoop();
+      console.log("remove");
+      engine.dispose();
+    };
+  }, []);
 
-        const material = new BABYLON.StandardMaterial('material', scene);
-        material.diffuseTexture = new BABYLON.Texture(imageURL, scene);
-        cuboid.material = material;
-        // sphere.material = material;
-
-        return scene;
-      };
-
-      const scene = createScene();
-
-      engine.runRenderLoop(() => {
-        scene.render();
-      });
-
-      return () => {
-        engine.stopRenderLoop();
-        engine.dispose();
-      };
+  useEffect(() => {
+    if (materialRef.current && imageURL) {
+      const texture = new BABYLON.Texture(imageURL, sceneRef.current);
+      materialRef.current.diffuseTexture = texture;
+      console.log("textur");
     }
   }, [imageURL]);
 
